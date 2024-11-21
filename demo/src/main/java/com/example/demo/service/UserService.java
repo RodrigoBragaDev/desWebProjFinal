@@ -55,11 +55,11 @@ public class UserService {
     }
 
     // Buscar todos os locais esportivos de um usuário (Proprietário)
-    public List<LocalEsportes> findLocalEsportesByUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return localEsportesRepository.findByDono(user);
-    }
+    //public List<LocalEsportes> findLocalEsportesByUser(Long userId) {
+    //   User user = userRepository.findById(userId)
+    //            .orElseThrow(() -> new RuntimeException("User not found"));
+    //    return localEsportesRepository.findByDono(user);
+    //}
 
     // Buscar todas as reservas de um usuário
     public List<Reserva> findReservasByUser(Long userId) {
@@ -79,5 +79,10 @@ public class UserService {
         reserva.setLocalEsportes(localEsportes);
 
         return reservaRepository.save(reserva);
+    }
+
+     // Buscar usuários que possuem reservas
+     public List<User> findUsersWithReservations() {
+        return userRepository.findUsersWithReservations();
     }
 }

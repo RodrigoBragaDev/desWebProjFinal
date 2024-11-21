@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/locais")
+@RequestMapping("/api/local-esportes")
 public class LocalEsportesController {
 
     @Autowired
@@ -22,42 +22,39 @@ public class LocalEsportesController {
         return localEsportesService.findAllLocalEsportes();
     }
 
-    // Buscar local esportivo por ID
+    // Buscar um local esportivo pelo ID
     @GetMapping("/{id}")
     public ResponseEntity<LocalEsportes> getLocalEsportesById(@PathVariable Long id) {
         return localEsportesService.findLocalEsportesById(id)
-                .map(localEsportes -> new ResponseEntity<>(localEsportes, HttpStatus.OK))
+                .map(local -> new ResponseEntity<>(local, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Criar novo local esportivo
+        // Criar novo local esportivo
+    //@PostMapping
+    //public ResponseEntity<LocalEsportes> createLocalEsportes(@RequestBody LocalEsportes localEsportes) {
+    //    LocalEsportes newLocal = localEsportesService.saveLocalEsportes(localEsportes);
+    //    return new ResponseEntity<>(newLocal, HttpStatus.CREATED);
+    //}
+
+    // Criar um novo local esportivo
     @PostMapping
-    public ResponseEntity<LocalEsportes> createLocalEsportes(@RequestBody LocalEsportes localEsportes) {
-        LocalEsportes newLocal = localEsportesService.saveLocalEsportes(localEsportes);
-        return new ResponseEntity<>(newLocal, HttpStatus.CREATED);
+    public LocalEsportes createLocalEsportes(@RequestBody LocalEsportes localEsportes) {
+        return localEsportesService.saveLocalEsportes(localEsportes);
     }
 
-    // Atualizar um local esportivo
-    @PutMapping("/{id}")
-    public ResponseEntity<LocalEsportes> updateLocalEsportes(@PathVariable Long id, @RequestBody LocalEsportes localEsportes) {
-        try {
-            LocalEsportes updatedLocal = localEsportesService.saveLocalEsportes(localEsportes);
-            return new ResponseEntity<>(updatedLocal, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // Excluir um local esportivo
+    // Deletar um local esportivo pelo ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLocalEsportes(@PathVariable Long id) {
         localEsportesService.deleteLocalEsportes(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // Buscar locais esportivos por dono (proprietário)
+    // Buscar locais esportivos por ID do dono
     @GetMapping("/dono/{donoId}")
-    public List<LocalEsportes> getLocaisPorDono(@PathVariable Long donoId) {
-        return localEsportesService.findLocalEsportesByDono(donoId);
+    public List<LocalEsportes> getLocalEsportesByDonoId(@PathVariable Long donoId) {
+        return localEsportesService.findByDonoId(donoId);
     }
 }
+
+

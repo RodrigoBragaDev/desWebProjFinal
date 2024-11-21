@@ -22,36 +22,45 @@ public class ReservaController {
         return reservaService.findAllReservas();
     }
 
-    // Buscar reserva por ID
+    // Buscar uma reserva pelo ID
     @GetMapping("/{id}")
     public ResponseEntity<Reserva> getReservaById(@PathVariable Long id) {
         return reservaService.findReservaById(id)
                 .map(reserva -> new ResponseEntity<>(reserva, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+        // Criar nova reserva
+    //@PostMapping
+    //public ResponseEntity<Reserva> createReserva(@RequestBody Reserva reserva) {
+    //    Reserva newReserva = reservaService.saveReserva(reserva);
+    //    return new ResponseEntity<>(newReserva, HttpStatus.CREATED);
+    //}
 
-    // Criar nova reserva
+    // Criar uma nova reserva
     @PostMapping
-    public ResponseEntity<Reserva> createReserva(@RequestBody Reserva reserva) {
-        Reserva newReserva = reservaService.saveReserva(reserva);
-        return new ResponseEntity<>(newReserva, HttpStatus.CREATED);
+    public Reserva createReserva(@RequestBody Reserva reserva) {
+        return reservaService.saveReserva(reserva);
     }
 
-    // Atualizar uma reserva
-    @PutMapping("/{id}")
-    public ResponseEntity<Reserva> updateReserva(@PathVariable Long id, @RequestBody Reserva reserva) {
-        try {
-            Reserva updatedReserva = reservaService.updateReserva(id, reserva);
-            return new ResponseEntity<>(updatedReserva, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // Excluir uma reserva
+    // Deletar uma reserva pelo ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReserva(@PathVariable Long id) {
         reservaService.deleteReserva(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // Buscar reservas por ID do usuário
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Reserva> getReservasByUsuarioId(@PathVariable Long usuarioId) {
+        return reservaService.findByUsuarioId(usuarioId);
+    }
+
+    // Buscar reservas por ID do local esportivo
+    @GetMapping("/local/{localEsportesId}")
+    public List<Reserva> getReservasByLocalEsportesId(@PathVariable Long localEsportesId) {
+        return reservaService.findByLocalEsportesId(localEsportesId);
+    }
 }
+
+
+

@@ -19,23 +19,23 @@ public class LocalEsportesService {
         return localEsportesRepository.findAll();
     }
 
-    // Buscar local esportivo por ID
+    // Buscar um local esportivo pelo ID
     public Optional<LocalEsportes> findLocalEsportesById(Long id) {
         return localEsportesRepository.findById(id);
     }
 
-    // Salvar um novo local esportivo
+    // Criar ou atualizar um local esportivo
     public LocalEsportes saveLocalEsportes(LocalEsportes localEsportes) {
         return localEsportesRepository.save(localEsportes);
     }
 
-    // Excluir um local esportivo
+    // Deletar um local esportivo pelo ID
     public void deleteLocalEsportes(Long id) {
         localEsportesRepository.deleteById(id);
     }
 
-    // Buscar locais esportivos por dono (proprietário)
-    public List<LocalEsportes> findLocalEsportesByDono(Long donoId) {
+    // Buscar locais esportivos por ID do dono
+    public List<LocalEsportes> findByDonoId(Long donoId) {
         return localEsportesRepository.findByDonoId(donoId);
     }
 }

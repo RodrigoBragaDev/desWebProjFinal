@@ -19,18 +19,28 @@ public class ReservaService {
         return reservaRepository.findAll();
     }
 
-    // Buscar reserva por ID
+    // Buscar uma reserva pelo ID
     public Optional<Reserva> findReservaById(Long id) {
         return reservaRepository.findById(id);
     }
 
-    // Salvar uma nova reserva
+    // Criar ou atualizar uma reserva
     public Reserva saveReserva(Reserva reserva) {
         return reservaRepository.save(reserva);
     }
 
-    // Excluir uma reserva
+    // Deletar uma reserva pelo ID
     public void deleteReserva(Long id) {
         reservaRepository.deleteById(id);
+    }
+
+    // Buscar reservas por ID do usuário
+    public List<Reserva> findByUsuarioId(Long usuarioId) {
+        return reservaRepository.findByUsuarioId(usuarioId);
+    }
+
+    // Buscar reservas por ID do local esportivo
+    public List<Reserva> findByLocalEsportesId(Long localEsportesId) {
+        return reservaRepository.findByLocalEsportesId(localEsportesId);
     }
 }
